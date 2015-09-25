@@ -1,0 +1,37 @@
+---
+  - name: Install torrent-related stuff
+    apt: name={{ item }} state=installed
+    with_items:
+      - rtorrent
+      - nginx
+      - curl
+      - git
+      - php5-fpm
+
+  - name: Clone the ruTorrent code
+    git: repo=https://github.com/Novik/ruTorrent dest={{ rutorrent_install_path }}
+
+  - name: Install the nginx config
+    template: src=nginx-rutorrent.conf dest=/etc/nginx/sites-available/rutorrent
+    notify:
+      - reload nginx
+
+  - name: Disable the default nginx config
+    file: path=/etc/nginx/sites-enabled/default state=absent
+    notify:
+      - reload nginx
+
+  - name: Enable our config
+    file: src=/etc/nginx/sites-available/rutorrent dest=/etc/nginx/sites-enabled/rutorrent state=link
+    notify:
+      - reload nginx
+
+  - name: Configure ruTorrent
+    template: src={{ item }}.j2 dest={{ rutorrent_install_path }}/share/{{ item }}
+    with_items:
+      - config.php
+      - access.ini
+      - plugins.ini
+
+  - name: Allow ruTorrent to edit it's own settings
+    file: path={{ rutorrent_install_path }}/share owner=www-data group=www-data

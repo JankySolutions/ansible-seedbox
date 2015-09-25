@@ -1,0 +1,8 @@
+---
+ - hosts: seedboxes
+   user: root
+   roles:
+     - apt
+     - utilities
+     - unattended-upgrades
+     - rtorrent

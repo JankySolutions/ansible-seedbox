@@ -1,0 +1,11 @@
+---
+  - name: Install fail2ban
+    apt: name=fail2ban state=installed
+
+  - name: Disallow password auth
+    lineinfile: line="PasswordAuthentication no" file=/etc/ssh/sshd_config
+    notify:
+      - restart ssh
+
+  - name: Generate an ed25519 key
+    command: dpkg-reconfigure openssh-server creates=/etc/ssh/ssh_host_ed25519_key

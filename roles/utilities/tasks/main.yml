@@ -1,0 +1,9 @@
+---
+  - name: Install some basic utilities
+    apt: name={{ item }} state=installed
+    with_items:
+      - htop
+      - tmux
+      - mosh
+      - zsh
+      - git
