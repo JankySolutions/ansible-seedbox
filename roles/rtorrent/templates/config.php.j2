@@ -27,8 +27,8 @@
     $topDirectory = '/';            // Upper available directory. Absolute path with trail slash.
     $forbidUserSettings = false;
 
-    $scgi_port = 5000;
-    $scgi_host = "127.0.0.1";
+    $scgi_port = {{ rtorrent_scgi_bind_port }};
+    $scgi_host = "{{ rtorrent_scgi_bind_address }}";
 
     // For web->rtorrent link through unix domain socket
     // (scgi_local in rtorrent conf file), change variables
@@ -37,7 +37,7 @@
     // $scgi_port = 0;
     // $scgi_host = "unix:///tmp/rpc.socket";
 
-    $XMLRPCMountPoint = "/RPC2";        // DO NOT DELETE THIS LINE!!! DO NOT COMMENT THIS LINE!!!
+    $XMLRPCMountPoint = "{{ rtorrent_RPC_path }}";        // DO NOT DELETE THIS LINE!!! DO NOT COMMENT THIS LINE!!!
 
     $pathToExternals = array(
         "php"   => '/usr/bin/php',           // Something like /usr/bin/php. If empty, will be found in PATH.
@@ -53,7 +53,7 @@
     );
 
     $profilePath = '../share';      // Path to user profiles
-    $profileMask = 0777;            // Mask for files and directory creation in user profiles.
+    $profileMask = 0770;            // Mask for files and directory creation in user profiles.
                         // Both Webserver and rtorrent users must have read-write access to it.
                         // For example, if Webserver and rtorrent users are in the same group then the value may be 0770.
 

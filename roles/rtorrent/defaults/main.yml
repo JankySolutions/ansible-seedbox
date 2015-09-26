@@ -1,2 +1,17 @@
 ---
   rutorrent_install_path: /var/www/ruTorrent
+  rtorrent_user: rtorrent
+  rtorrent_group: rtorrent
+  rtorrent_home: /home/rtorrent
+  rtorrent_download_folder: /var/downloads
+  rtorrent_scgi_bind_address: localhost
+  rtorrent_scgi_bind_port: 5000
+  rtorrent_RPC_path: /RPC2
+  rtorrent_settings:
+    directory: "{{ rtorrent_download_folder }}"
+    session: "{{ rtorrent_home }}/.rtorrent.session"
+    encryption: allow_incoming,try_outgoing,enable_retry
+    dht: auto
+    dht_port: 6881
+    peer_exchange: yes
+    scgi_port: "{{ rtorrent_scgi_bind_address }}:{{ rtorrent_scgi_bind_port }}"

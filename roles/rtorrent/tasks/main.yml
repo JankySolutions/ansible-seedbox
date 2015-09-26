@@ -34,4 +34,20 @@
       - plugins.ini
 
   - name: Allow ruTorrent to edit it's own settings
-    file: path={{ rutorrent_install_path }}/share owner=www-data group=www-data
+    file: path={{ rutorrent_install_path }}/share owner=www-data group={{ rtorrent_group }}
+
+  - name: Create rtorrent user
+    user: name={{ rtorrent_user }} home={{ rtorrent_home }}
+
+  - name: Install systemd service
+    template: src=rtorrent.service.j2 dest=/etc/systemd/system/rtorrent.service
+    notify:
+      - Reload systemd
+
+  - name: Install rtorrent config file
+    template: src=rtorrent.rc.j2 dest={{ rtorrent_home }}/.rtorrent.rc
+    notify:
+      - Restart rtorrent
+
+  - name: Create the downloads folder
+    file: path="{{ rtorrent_download_folder }}" state=directory owner={{ rtorrent_user }} group={{ rtorrent_group }}

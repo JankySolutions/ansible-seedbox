@@ -1,0 +1,17 @@
+[Unit]
+Description=rtorrent
+Wants=network.target
+After=network.target
+
+[Service]
+Type=forking
+KillMode=none
+ExecStart=/usr/bin/tmux new-session -s rt -n rtorrent -d rtorrent
+ExecStop=/usr/bin/bash -c "/usr/bin/tmux send-keys -t rt:rtorrent C-q && while pidof rtorrent > /dev/null; do sleep 0.5; echo rtorrent still running...; done"
+WorkingDirectory=%h
+Restart=on-failure
+User={{ rtorrent_user }}
+Group={{ rtorrent_group }}
+
+[Install]
+WantedBy=multi-user.target

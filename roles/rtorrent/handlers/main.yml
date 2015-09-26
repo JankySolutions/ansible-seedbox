@@ -1,3 +1,9 @@
 ---
   - name: reload nginx
     service: name=nginx state=reloaded
+
+  - name: Restart rtorrent
+    service: name=rtorrent state=restarted
+
+  - name: Reload systemd
+    command: systemctl daemon-reload
