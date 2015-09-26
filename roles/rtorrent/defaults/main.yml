@@ -7,9 +7,10 @@
   rtorrent_scgi_bind_address: localhost
   rtorrent_scgi_bind_port: 5000
   rtorrent_RPC_path: /RPC2
+  rtorrent_session_folder: "{{ rtorrent_home }}/.rtorrent.session"
   rtorrent_settings:
     directory: "{{ rtorrent_download_folder }}"
-    session: "{{ rtorrent_home }}/.rtorrent.session"
+    session: "{{ rtorrent_session_folder }}"
     encryption: allow_incoming,try_outgoing,enable_retry
     dht: auto
     dht_port: 6881
