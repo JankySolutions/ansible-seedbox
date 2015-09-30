@@ -7,7 +7,10 @@
   rtorrent_scgi_bind_address: localhost
   rtorrent_scgi_bind_port: 5000
   rtorrent_RPC_path: /RPC2
+  dhparam_path: /etc/ssl/dhparam.pem
   rtorrent_session_folder: "{{ rtorrent_home }}/.rtorrent.session"
+  auth_url: https://auth.janky.solutions
+  auth_path: /auth
   rtorrent_settings:
     directory: "{{ rtorrent_download_folder }}"
     session: "{{ rtorrent_session_folder }}"

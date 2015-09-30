@@ -7,7 +7,9 @@
       - curl
       - unzip
       - unrar
+      - libav-tools
       - git
+      - mediainfo
       - php5-fpm
 
   - name: Clone the ruTorrent code
@@ -23,13 +25,18 @@
     notify:
       - reload nginx
 
+  - name: Generate a dhparam
+    command: "openssl dhparam -out {{ dhparam_path }} 2048"
+    args:
+      creates: "{{ dhparam_path }}"
+
   - name: Enable our config
     file: src=/etc/nginx/sites-available/rutorrent dest=/etc/nginx/sites-enabled/rutorrent state=link
     notify:
       - reload nginx
 
   - name: Configure ruTorrent
-    template: src={{ item }}.j2 dest={{ rutorrent_install_path }}/share/{{ item }}
+    template: src={{ item }}.j2 dest={{ rutorrent_install_path }}/share/{{ item }} owner=www-data group={{ rtorrent_group }}
     with_items:
       - config.php
       - access.ini
