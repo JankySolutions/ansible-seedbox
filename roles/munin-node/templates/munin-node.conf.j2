@@ -1,0 +1,32 @@
+log_level 4
+log_file /var/log/munin/munin-node.log
+pid_file /var/run/munin/munin-node.pid
+
+background 1
+setsid 1
+
+user root
+group root
+
+# Regexps for files to ignore
+ignore_file [\#~]$
+ignore_file DEADJOE$
+ignore_file \.bak$
+ignore_file %$
+ignore_file \.dpkg-(tmp|new|old|dist)$
+ignore_file \.rpm(save|new)$
+ignore_file \.pod$
+
+host_name {{ ansible_fqdn }}
+
+allow ^127\.0\.0\.1$
+allow ^::1$
+
+{% for host in munin_hosts %}
+cidr_allow {{ host }}/32
+
+{% endfor %}
+
+host *
+
+port 4949

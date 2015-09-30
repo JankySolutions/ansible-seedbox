@@ -1,0 +1,8 @@
+---
+  - name: Install munin-node
+    apt: name=munin-node state=present
+
+  - name: Configure munin-node
+    template: src=munin-node.conf.j2 dest=/etc/munin/munin-node.conf
+    notify:
+      - Restart munin-node
