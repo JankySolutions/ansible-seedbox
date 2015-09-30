@@ -1,8 +1,16 @@
 ---
  - hosts: seedboxes
    user: root
+   vars:
+     auth_url: http://requestb.in/u8k0lau8
+     munin_hosts:
+       - 104.223.1.115
    roles:
      - apt
      - utilities
      - unattended-upgrades
+     - munin-node
+     - role: letsencrypt
+       letsencrypt_agree_tos: yes
+       letsencrypt_agree_eula: yes
      - rtorrent
