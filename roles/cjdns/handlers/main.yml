@@ -1,0 +1,9 @@
+---
+  - name: Build cjdns
+    command: ./do chdir=/usr/local/src/cjdns
+
+  - name: restart cjdns
+    service: name=cjdns state=restarted
+
+  - name: Reload systemd
+    command: systemctl daemon-reload

@@ -1,0 +1,33 @@
+---
+  - name: Install depends
+    apt: name={{ item }} state=installed
+    with_items:
+      - git
+      - build-essential
+      - python-pip
+
+  - name: Install cjdnsadmin via pip
+    pip: name=cjdnsadmin state=latest
+
+  - name: Grab the cjdns repo
+    git: repo=https://github.com/cjdelisle/cjdns dest=/usr/local/src/cjdns version={{ cjdns_branch }}
+    notify:
+      - Build cjdns
+
+  - name: Put cjdroute in the $PATH
+    file: src=/usr/local/src/cjdns/cjdroute dest=/usr/sbin/cjdroute state=link force=yes
+
+  - name: Install the systemd service
+    template: src=cjdns.service.j2 dest=/etc/systemd/system/cjdns.service
+    notify:
+      - Reload systemd
+
+  - meta: flush_handlers
+
+  - name: generate a configuration file
+    shell: /usr/sbin/cjdroute --genconf | /usr/sbin/cjdroute --cleanconf > /etc/cjdroute.conf creates=/etc/cjdroute.conf
+    notify:
+      - restart cjdns
+
+  - name: Ensure cjdns is running
+    service: name=cjdns state=started enabled=yes
