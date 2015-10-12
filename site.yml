@@ -1,10 +1,8 @@
 ---
  - hosts: seedboxes
    user: root
-   vars:
-     auth_url: http://requestb.in/u8k0lau8
-     munin_hosts:
-       - 104.223.1.115
+   vars_files:
+     - config.yml
    roles:
      - apt
      - utilities
