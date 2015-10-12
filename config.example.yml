@@ -1,0 +1,9 @@
+---
+auth_url: <
+munin_hosts:
+- 123.456.789.10
+cjdns_udp_peers:
+- address: <ip>:<port>
+  data:
+    password: <password>
+    publicKey: <pubkey>
