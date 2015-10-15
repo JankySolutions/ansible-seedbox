@@ -4,3 +4,6 @@
 [submodule "roles/letsencrypt"]
 	path = roles/letsencrypt
 	url = https://github.com/thefinn93/ansible-letsencrypt
+[submodule "roles/tor"]
+	path = roles/tor
+	url = https://github.com/thefinn93/ansible-tor
