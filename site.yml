@@ -16,11 +16,11 @@
        tor_ControlPort: 9051
        tor_ExitPolicy: "reject *:*"
        tor_auto_family: true
-       tor_ContactInfo: "Finn <finn@janky.solutions> - 1FinnmnefrEHvRw88YfBSpNWPRbe4hnqR3"
+       tor_ContactInfo: "Finn <finn@janky.solutions> - 1JankypvVB65ntXp6EvYanqHsxDFx4nx8D"
        tor_Syslog: "notice"
        tor_BridgeRelay: 1
-       tor_Nickname: "{{ ansible_hostname | replace('ns', '') | truncate(7, True, '') }}JankySolution"
-       
+       tor_Nickname: "{{ ansible_hostname | replace('ns', '') }}Janky"
+
      - role: letsencrypt
        letsencrypt_agree_tos: yes
        letsencrypt_agree_eula: yes
