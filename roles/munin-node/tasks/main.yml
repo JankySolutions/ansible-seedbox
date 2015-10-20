@@ -1,6 +1,37 @@
 ---
-  - name: Install munin-node
-    apt: name=munin-node state=present
+  - name: install depends
+    apt: name={{ item }} state=installed
+    with_items:
+      - munin-node
+      - python-pip
+      - git
+      - python-dev
+      - build-essential
+      - libgeoip-dev
+
+  - name: Download munin tor plugin
+    git: repo=https://github.com/mweinelt/munin-tor dest=/usr/local/src/munin-tor
+
+  - name: Install depends (pip)
+    pip: requirements=/usr/local/src/munin-tor/requirements.txt
+
+  - name: Symlink tor_.py to available munin plugins
+    file: src=/usr/local/src/munin-tor/tor_.py dest=/usr/share/munin/plugins/tor_ state=link
+
+  - name: Enable tor munin plugins
+    file: src=/usr/share/munin/plugins/tor_ dest=/etc/munin/plugins/tor_{{ item }} state=link
+    with_items:
+      - connections
+      - traffic
+      - dormant
+      - countries
+      - bandwidth
+      - flags
+    notify: Restart munin-node
+
+  - name: Set tor-related munin plugin to run as user debian-tor
+    template: src=munin-tor-conf.j2 dest=/etc/munin/plugin-conf.d/tor owner=root group=root mode=644
+    notify: Restart munin-node
 
   - name: Configure munin-node
     template: src=munin-node.conf.j2 dest=/etc/munin/munin-node.conf
