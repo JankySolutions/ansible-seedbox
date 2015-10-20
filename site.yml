@@ -11,16 +11,16 @@
      - cjdns
      - role: tor
        tor_distribution_release: "tor-experimental-0.2.7.x-jessie"
-       tor_ORPort: 9001
-       tor_DirPort: 9030
+       tor_ORPort: "{{ ansible_default_ipv4.address }}:9001"
+       tor_DirPort: "{{ ansible_default_ipv4.address }}:9030"
+       tor_Address: "{{ ansible_fqdn }}"
        tor_ControlPort: 9051
        tor_ExitPolicy: "reject *:*"
        tor_auto_family: true
        tor_ContactInfo: "Finn <finn@janky.solutions> - 1JankypvVB65ntXp6EvYanqHsxDFx4nx8D"
        tor_Syslog: "notice"
        tor_BridgeRelay: 1
-       tor_Nickname: "{{ ansible_hostname | replace('ns', '') }}Janky"
-
+       tor_Nickname: "Janky{{ ansible_hostname | replace('ns', '') }}"
      - role: letsencrypt
        letsencrypt_agree_tos: yes
        letsencrypt_agree_eula: yes
