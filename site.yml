@@ -11,7 +11,7 @@
      - cjdns
      - role: tor
        tor_distribution_release: "tor-experimental-0.2.7.x-jessie"
-       tor_ORPort: "{{ ansible_default_ipv4.address }}:9001"
+       tor_ORPort: "[{{ ansible_default_ipv6.address }}]:9001"
        tor_DirPort: "{{ ansible_default_ipv4.address }}:9030"
        tor_Address: "{{ ansible_fqdn }}"
        tor_ControlPort: 9051
