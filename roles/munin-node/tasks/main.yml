@@ -10,7 +10,7 @@
       - libgeoip-dev
 
   - name: Download munin tor plugin
-    git: repo=https://github.com/mweinelt/munin-tor dest=/usr/local/src/munin-tor
+    git: repo=https://github.com/thefinn93/munin-tor dest=/usr/local/src/munin-tor
 
   - name: Install depends (pip)
     pip: requirements=/usr/local/src/munin-tor/requirements.txt
