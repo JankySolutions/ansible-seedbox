@@ -9,6 +9,11 @@
      - unattended-upgrades
      - munin-node
      - cjdns
+     - role: bitcoind
+       bitcoind_use_logstash: false
+       munin_bitcoin: true
+       bitcoind_rpc_user: bitcoin
+       bitcoind_rpc_password: "{{ lookup('password', playbook_dir + '/credentials/' + ansible_nodename + '/bitcoind_rpc_password')}}"
      - role: tor
        tor_distribution_release: "tor-experimental-0.2.7.x-jessie"
        tor_ORPort: "{{ ansible_default_ipv4.address }}:9001"

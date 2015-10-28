@@ -8,6 +8,7 @@
       - python-dev
       - build-essential
       - libgeoip-dev
+      - python3-dev
 
   - name: Download munin tor plugin
     git: repo=https://github.com/thefinn93/munin-tor dest=/usr/local/src/munin-tor
@@ -27,6 +28,24 @@
       - countries
       - bandwidth
       - flags
+    notify: Restart munin-node
+
+  - name: Download thefinn93's munin plugins
+    git: repo=https://github.com/thefinn93/munin-plugins dest=/usr/local/src/munin-plugins
+
+  - name: Install python cjdns library
+    pip: name=cjdnsadmin
+
+  - name: Enable some of them
+    file: src=/usr/local/src/munin-plugins/{{ item.filename }} dest=/etc/munin/plugins/{{ item.name }} state=link
+    with_items:
+      - { filename: misc/oniontip.py, name: oniontip}
+      - { filename: cjdns/cjdns_bandwidth.py, name: cjdns_bandwidth }
+      - { filename: cjdns/cjdns_versions.py, name: cjdns_versions }
+    notify: Restart munin-node
+
+  - name: Install oniontip plugin configuration
+    template: src=munin-oniontip.conf.j2 dest=/etc/munin/plugin-conf.d/oniontip
     notify: Restart munin-node
 
   - name: Set tor-related munin plugin to run as user debian-tor

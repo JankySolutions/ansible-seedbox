@@ -7,3 +7,6 @@
 [submodule "roles/tor"]
 	path = roles/tor
 	url = https://github.com/thefinn93/ansible-tor
+[submodule "roles/bitcoind"]
+	path = roles/bitcoind
+	url = git@github.com:dhruvbansal/bitcoind-ansible-role.git
