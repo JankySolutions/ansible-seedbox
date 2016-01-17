@@ -10,3 +10,6 @@
 [submodule "roles/bitcoind"]
 	path = roles/bitcoind
 	url = git@github.com:dhruvbansal/bitcoind-ansible-role.git
+[submodule "roles/cowrie"]
+	path = roles/cowrie
+	url = https://github.com/thefinn93/ansible-cowrie
