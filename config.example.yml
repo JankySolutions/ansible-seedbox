@@ -1,5 +1,7 @@
 ---
-auth_url: <
+rtorrent_users:
+  - name: admin
+    password: secretpassword
 munin_hosts:
 - 123.456.789.10
 cjdns_udp_peers:

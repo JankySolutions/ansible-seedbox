@@ -70,3 +70,10 @@
 
   - name: Create the session folder
     file: path="{{ rtorrent_session_folder }}" state=directory owner={{ rtorrent_user }} group={{ rtorrent_group }}
+
+  - name: Install passlib stuff for htpassword
+    pip: name=passlib state=latest
+
+  - name: Create htpasswords
+    htpasswd: path={{ auth_basic_file }} name={{ item.name }} password={{ item.password }} crypt_scheme=sha256_crypt
+    with_items: "{{ rtorrent_users }}"

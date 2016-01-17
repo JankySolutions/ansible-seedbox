@@ -9,8 +9,8 @@
   rtorrent_RPC_path: /RPC2
   dhparam_path: /etc/ssl/dhparam.pem
   rtorrent_session_folder: "{{ rtorrent_home }}/.rtorrent.session"
-  auth_url: https://auth.janky.solutions
-  auth_path: /auth
+  rtorrent_auth_realm: "Restricted Area"
+  auth_basic_file: /etc/nginx/auth.htpasswd
   rtorrent_settings:
     directory: "{{ rtorrent_download_folder }}"
     session: "{{ rtorrent_session_folder }}"
