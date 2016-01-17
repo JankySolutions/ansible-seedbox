@@ -12,7 +12,6 @@
       - role: ssh
         ssh_port: 47821
       - apt
-      - debug
       - utilities
       - unattended-upgrades
       - munin-node
@@ -34,4 +33,3 @@
         letsencrypt_agree_eula: yes
         letsencrypt_email: finn@janky.solutions
       - rtorrent
-      - tails-mirror
